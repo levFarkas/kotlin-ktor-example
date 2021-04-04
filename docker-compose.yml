@@ -1,12 +1,18 @@
 version: "3.9"  # optional since v1.27.0
 services:
   
-  postgres:
-    image: postgres
+  postgres-ktor:
+    image: postgres-ktor:latest
     restart: always
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: database
+      POSTGRES_INITDB_ARGS: --auth-host=md5
     ports:
       - "5432:5432"
+
+  app:
+    image: app:latest
+    ports:
+      - "8080:8080"

@@ -1,5 +1,9 @@
-FROM gradle:4.7.0-jdk8-alpine
-COPY . .
+FROM gradle:5.3.0-jdk-alpine
+WORKDIR /app
+COPY . /app
+USER root
+RUN chown -R gradle /app
+USER gradle
 EXPOSE 8080
-RUN gradle build
-ENTRYPOINT ["gradle", "run"]
+RUN ./gradlew clean build
+ENTRYPOINT ./gradlew run
